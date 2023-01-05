@@ -1,7 +1,6 @@
 package org.jlereback.knitknot;
 
 import javafx.collections.ListChangeListener;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,10 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.jlereback.knitknot.shapes.ShapeFactory;
@@ -40,7 +36,6 @@ public class Controller {
     public Model model = new Model();
     ShapeFactory shapeFactory = new ShapeFactory();
     private Stage stage;
-    private Stage popupStage;
     public GraphicsContext context;
     public ShapeParameter shapeParameter;
     public ChoiceBox<ShapeType> shapeType;
@@ -74,11 +69,11 @@ public class Controller {
     private void initPaintingArea() {
         context = paintingArea.getGraphicsContext2D();
 
-        //paintingArea.widthProperty().bindBidirectional(model.canvasWidthProperty());
-        //paintingArea.heightProperty().bindBidirectional(model.canvasHeightProperty());
-//
-        //paintingArea.widthProperty().addListener(observable -> draw());
-        //paintingArea.heightProperty().addListener(observable -> draw());
+/*        paintingArea.widthProperty().bindBidirectional(model.canvasWidthProperty());
+        paintingArea.heightProperty().bindBidirectional(model.canvasHeightProperty());
+
+        paintingArea.widthProperty().addListener(observable -> draw());
+        paintingArea.heightProperty().addListener(observable -> draw());*/
     }
     private void initShape() {
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());

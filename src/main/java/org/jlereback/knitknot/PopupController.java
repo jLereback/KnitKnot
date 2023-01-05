@@ -1,16 +1,10 @@
 package org.jlereback.knitknot;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class PopupController {
 	public Button createButton;
@@ -23,8 +17,6 @@ public class PopupController {
 
 
 	public void initialize() {
-		//rowSpinner.getValueFactory().valueProperty().bindBidirectional(model.rowProperty());
-		//columnSpinner.getValueFactory().valueProperty().bindBidirectional(model.columnProperty());
 	}
 
 	public void createClicked() {

@@ -27,10 +27,8 @@ public class Model {
     private final DoubleProperty canvasWidth;
     private final BooleanProperty eraser;
     private final BooleanProperty brush;
-    private final BooleanProperty create;
 
     public Model() {
-        this.create = new SimpleBooleanProperty(false);
         this.row = new SimpleObjectProperty<>(80.0);
         this.column = new SimpleObjectProperty<>(10.0);
         this.canvasHeight = new SimpleDoubleProperty();
@@ -48,18 +46,6 @@ public class Model {
         this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
     }
 
-
-    public boolean isCreate() {
-        return create.get();
-    }
-
-    public BooleanProperty createProperty() {
-        return create;
-    }
-
-    public void setCreate(boolean create) {
-        this.create.set(create);
-    }
 
     public Double getRow() {
         return row.get();
