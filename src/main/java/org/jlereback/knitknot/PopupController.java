@@ -1,9 +1,11 @@
 package org.jlereback.knitknot;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
 

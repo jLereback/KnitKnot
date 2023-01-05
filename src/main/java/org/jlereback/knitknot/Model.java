@@ -1,10 +1,10 @@
 package org.jlereback.knitknot;
 
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.scene.paint.Color;
 import org.jlereback.knitknot.shapes.ShapeType;
+import org.jlereback.knitknot.shapes.shape.FilledCell;
 import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
 import org.jlereback.knitknot.shapes.shape.Shape;
 
@@ -28,9 +28,11 @@ public class Model {
     private final DoubleProperty canvasWidth;
     private final BooleanProperty eraser;
     private final BooleanProperty brush;
+    private final ObservableList<FilledCell> cellList;
     private GridCellCoordinate[][] grid;
 
     public Model() {
+        this.cellList = FXCollections.observableArrayList();
         this.row = new SimpleObjectProperty<>(80.0);
         this.column = new SimpleObjectProperty<>(10.0);
         this.canvasHeight = new SimpleDoubleProperty();
@@ -47,6 +49,11 @@ public class Model {
         this.size = new SimpleObjectProperty<>(20.0);
         this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
     }
+
+    public ObservableList<FilledCell> getCellList() {
+        return cellList;
+    }
+
 
     public GridCellCoordinate[][] getGrid() {
         return grid;

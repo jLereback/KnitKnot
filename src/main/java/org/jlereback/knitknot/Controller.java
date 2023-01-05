@@ -1,6 +1,7 @@
 package org.jlereback.knitknot;
 
 import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,11 +18,12 @@ import javafx.stage.Stage;
 import org.jlereback.knitknot.shapes.ShapeFactory;
 import org.jlereback.knitknot.shapes.ShapeParameter;
 import org.jlereback.knitknot.shapes.ShapeType;
+import org.jlereback.knitknot.shapes.shape.FilledCell;
+import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
 import org.jlereback.knitknot.shapes.shape.Shape;
 import org.jlereback.knitknot.tools.SVGWriter;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Optional;
 
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
@@ -86,7 +88,7 @@ public class Controller {
 
 		sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
-		model.getShapeList().addListener((ListChangeListener<Shape>) onChange -> draw());
+		model.getCellList().addListener((ListChangeListener<FilledCell>) onChange -> draw());
 	}
 
 	private void initButtons() {
@@ -138,16 +140,11 @@ public class Controller {
 		for (int i = 0; i < model.getRow(); i++) {
 			for (int j = 0; j < model.getColumn(); j++) {
 				if (grid[i][j].isInsideCell(mouseEvent.getX(), mouseEvent.getY())) {
-					context.setFill(model.getColor());
-					context.fillRect(grid[i][j].x() - model.getSize() / 2,
-									grid[i][j].y() - model.getSize() / 2,
-									model.getSize(),
-									model.getSize());
+
+					grid[i][j].draw(context, model);
 				}
 			}
 		}
-		//Arrays.stream(model.getGrid()).filter(coordinate -> coordinate.isInsideCell(mouseEvent.getX(), mouseEvent.getY()))
-		//        .reduce((first, second) -> second);
 	}
 
 	private void createNewShape(MouseEvent mouseEvent) {
@@ -163,7 +160,11 @@ public class Controller {
 
 	private void draw() {
 		preparePaintingArea();
-		model.getShapeList().forEach(shape -> shape.draw(context));
+		model.getCellList().forEach(cell -> cell.draw(context, model));
+		System.out.println();
+/*		model.getGridCellMap().stream()
+				.filter(gridCellCoordinate -> gridCellCoordinate.getColor() != Color.TRANSPARENT)
+				.forEach(cell -> cell.draw(context, model));*/
 	}
 
 	private void preparePaintingArea() {
