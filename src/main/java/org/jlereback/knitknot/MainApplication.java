@@ -24,23 +24,26 @@ public class MainApplication extends Application {
         stage.getIcons().add(new Image(Objects.requireNonNull(MainApplication.class.getResourceAsStream("JavaDuke.png"))));
 
 
-        startPopup(controller, stage);
+        //startPopup(controller, stage, scene);
 
         stage.show();
     }
 
-    public void startPopup(Controller controller, Stage stage) throws IOException {
+/*    public void startPopup(Controller controller, Stage stage, Scene scene) throws IOException {
         Stage popupStage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("popupView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 200, 229);
+        FXMLLoader popupLoaderLoader = new FXMLLoader(MainApplication.class.getResource("popupView.fxml"));
+        Scene popupScene = new Scene(popupLoaderLoader.load(), 200, 229);
 
         controller.setPopupStage(popupStage);
+        PopupController popupController = popupLoaderLoader.getController();
+        popupController.setControllerScene(scene);
+        popupController.setControllerStage(stage);
 
         popupStage.initModality(Modality.WINDOW_MODAL);
         popupStage.initOwner(stage.getOwner());
 
-        popupStage.setScene(scene);
-    }
+        popupStage.setScene(popupScene);
+    }*/
 
     public static void main(String[] args) {
         launch();

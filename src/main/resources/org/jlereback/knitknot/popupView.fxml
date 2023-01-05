@@ -32,22 +32,22 @@
 			<Insets bottom="5.0" top="5.0"/>
 		</VBox.margin>
 		<Label prefHeight="24.0" prefWidth="96.0" text="Maskor höjd"/>
-		<Spinner fx:id="rowSpinner" prefHeight="11.0" prefWidth="58.0" amountToStepBy="2.0" editable="true" max="500.0" min="2.0"/>
+		<Spinner fx:id="rowSpinner" prefHeight="11.0" prefWidth="58.0" initialValue="50" amountToStepBy="2.0" editable="true" max="500.0" min="30.0"/>
 	</HBox>
 	<HBox prefHeight="23.0" prefWidth="180.0">
 		<Label prefHeight="24.0" prefWidth="96.0" text="Maskor bredd"/>
-		<Spinner fx:id="columnSpinner" prefHeight="11.0" prefWidth="58.0" amountToStepBy="2.0" editable="true" max="500.0" min="2.0"/>
+		<Spinner fx:id="columnSpinner" prefHeight="11.0" prefWidth="58.0" initialValue="50" amountToStepBy="2.0" editable="true" max="500.0" min="30.0"/>
 	</HBox>
 	<HBox prefHeight="31.0" prefWidth="77.0">
 		<VBox.margin>
 			<Insets top="40.0"/>
 		</VBox.margin>
-		<Button fx:id="escapeButton" mnemonicParsing="false" text="Avbryt" textAlignment="RIGHT">
+		<Button fx:id="cancelButton" onAction="#cancelClicked" mnemonicParsing="false" text="Avbryt" textAlignment="RIGHT">
 			<HBox.margin>
 				<Insets/>
 			</HBox.margin>
 		</Button>
-		<Button fx:id="createButton" onAction="#setCreate" mnemonicParsing="false" text="Skapa mönster">
+		<Button fx:id="createButton" onAction="#createClicked" mnemonicParsing="false" text="Skapa mönster">
 			<HBox.margin>
 				<Insets left="5.0"/>
 			</HBox.margin>

@@ -2,6 +2,9 @@ package org.jlereback.knitknot;
 
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -21,6 +24,7 @@ import org.jlereback.knitknot.shapes.ShapeType;
 import org.jlereback.knitknot.shapes.shape.Shape;
 import org.jlereback.knitknot.tools.SVGWriter;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
@@ -32,15 +36,8 @@ public class Controller {
     static final KeyCombination REDO = new KeyCodeCombination(KeyCode.Y, CONTROL_DOWN);
     static final KeyCombination EXIT = new KeyCodeCombination(KeyCode.E, ALT_DOWN);
     static final Color BACKGROUND_COLOR = Color.web("#edece0");
-    public Spinner<Double> rowSpinner;
-    public Spinner<Double> columnSpinner;
-    public Button createButton;
-    public VBox popup;
 
-    public boolean create;
-    @FXML
-    private PopupController popupController;
-    Model model = new Model();
+    public Model model = new Model();
     ShapeFactory shapeFactory = new ShapeFactory();
     private Stage stage;
     private Stage popupStage;
@@ -83,7 +80,6 @@ public class Controller {
         //paintingArea.widthProperty().addListener(observable -> draw());
         //paintingArea.heightProperty().addListener(observable -> draw());
     }
-
     private void initShape() {
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
 
@@ -94,7 +90,6 @@ public class Controller {
 
         model.getShapeList().addListener((ListChangeListener<Shape>) onChange -> draw());
     }
-
     private void initButtons() {
         viewUndo.selectedProperty().bindBidirectional(model.undoVisibleProperty());
         undoButton.visibleProperty().bind(model.undoVisibleProperty());
@@ -105,16 +100,12 @@ public class Controller {
         brush.selectedProperty().bindBidirectional(model.brushProperty());
         eraser.selectedProperty().bindBidirectional(model.eraserProperty());
     }
-
-
     private void initMenu() {
         menuRedo.setAccelerator(REDO);
         menuUndo.setAccelerator(UNDO);
         menuSave.setAccelerator(SAVE);
         menuExit.setAccelerator(EXIT);
     }
-
-
     public void canvasClicked(MouseEvent mouseEvent) {
         if (mouseEvent.isControlDown() || mouseEvent.isShiftDown())
             shapeClicked(mouseEvent);
@@ -122,7 +113,6 @@ public class Controller {
             createNewShape(mouseEvent);
         model.getRedoDeque().clear();
     }
-
     public void shapeClicked(MouseEvent mouseEvent) {
         if (mouseEvent.isControlDown() && mouseEvent.isShiftDown())
             updateShape(mouseEvent);
@@ -133,50 +123,41 @@ public class Controller {
         else return;
         model.getRedoDeque().clear();
     }
-
     private void createNewShape(MouseEvent mouseEvent) {
         createNewShapeParameter(mouseEvent.getX(), mouseEvent.getY());
 
         model.addToUndoDeque();
         model.sendToList(shapeFactory.getShape(model.getShapeType(), shapeParameter));
     }
-
     private void createNewShapeParameter(double posX, double posY) {
         shapeParameter = new ShapeParameter(posX, posY, model.getSize(), model.getColor());
     }
-
     private void draw() {
         preparePaintingArea();
         model.getShapeList().forEach(shape -> shape.draw(context));
     }
-
     private void preparePaintingArea() {
         context.setFill(BACKGROUND_COLOR);
         context.fillRect(0, 0, paintingArea.getWidth(), paintingArea.getWidth());
     }
-
     public void undoClicked() {
         model.undo();
     }
-
     public void redoClicked() {
         model.redo();
     }
-
     private void erase(MouseEvent mouseEvent) {
         if (findShape(mouseEvent).isEmpty())
             return;
         model.addToUndoDeque();
         findShape(mouseEvent).ifPresent(shape -> model.getShapeList().remove(shape));
     }
-
     public void resetClicked() {
         model.getRedoDeque().clear();
         model.addToUndoDeque();
         preparePaintingArea();
         model.getShapeList().clear();
     }
-
     public void updateShape(MouseEvent mouseEvent) {
         if (findShape(mouseEvent).isEmpty())
             return;
@@ -184,7 +165,6 @@ public class Controller {
         findShape(mouseEvent).ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
         model.updateShapeList();
     }
-
     private void updateColor(MouseEvent mouseEvent) {
         if (findShape(mouseEvent).isEmpty())
             return;
@@ -192,7 +172,6 @@ public class Controller {
         findShape(mouseEvent).ifPresent(shape -> shape.setColor(model.getColor()));
         model.updateShapeList();
     }
-
     private void updateSize(MouseEvent mouseEvent) {
         if (findShape(mouseEvent).isEmpty())
             return;
@@ -200,25 +179,20 @@ public class Controller {
         findShape(mouseEvent).ifPresent(shape -> shape.setSize(model.getSize()));
         model.updateShapeList();
     }
-
     private Optional<Shape> findShape(MouseEvent mouseEvent) {
         return model.getShapeList().stream()
                 .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
                 .reduce((first, second) -> second);
     }
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
     public void save() {
         SVGWriter.getSVGWriter().save(model, stage);
     }
-
     public void exit() {
         System.exit(0);
     }
-
     public void toggleBrush() {
         if (model.isBrush()) {
             paintingArea.setOnMouseDragged(this::createNewShape);
@@ -227,7 +201,6 @@ public class Controller {
         else
             paintingArea.setOnMouseDragged(this::shapeClicked);
     }
-
     public void toggleEraser() {
         if (model.isEraser()) {
             paintingArea.setOnMouseDragged(this::erase);
@@ -239,29 +212,30 @@ public class Controller {
         }
     }
 
-    public void openInitPattern() {
 
-        popupStage.show();
+    public void loadPopup() {
+        try {
+            //Load popup scene
+            FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("popupView.fxml"));
+            Parent root = popupLoader.load();
 
-    }
+            //Get controller of popup
+            PopupController popupController = popupLoader.getController();
 
-    public void createGrid() {
-        ColumnConstraints column = new ColumnConstraints(model.getSize());
-        grid.getColumnConstraints().clear();
-        for (int i = 0; i < model.getColumn(); i++) {
-            grid.getColumnConstraints().add(column);
+            //Pass whatever data you want. You can have multiple method calls here
+            popupController.setMainController(this);
+            popupController.setModel(model);
+
+            //Show popup in new window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("New Pattern");
+
+            popupController.setPopupStage(stage);
+
+            stage.show();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
         }
-        RowConstraints row = new RowConstraints(model.getSize());
-        grid.getRowConstraints().clear();
-        for (int i = 0; i < model.getRow(); i++) {
-            grid.getRowConstraints().add(row);
-        }
     }
-
-    public void setPopupStage(Stage popupStage) {
-        this.popupStage = popupStage;
-
-    }
-
-
 }

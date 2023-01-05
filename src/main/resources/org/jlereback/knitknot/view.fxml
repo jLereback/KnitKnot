@@ -30,7 +30,7 @@
 						 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<Menu text="File">
 						<Menu mnemonicParsing="false" text="New">
-							<MenuItem fx:id="newPattern" onAction="#openInitPattern" text="Pattern"/>
+							<MenuItem fx:id="newPattern" onAction="#loadPopup" text="Pattern"/>
 						</Menu>
 						<MenuItem mnemonicParsing="false" text="Open"/>
 						<SeparatorMenuItem/>
