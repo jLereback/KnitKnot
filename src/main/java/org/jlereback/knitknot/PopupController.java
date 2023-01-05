@@ -34,18 +34,16 @@ public class PopupController {
 	}
 
 	public void createGrid() {
-		double halfSize = model.getSize() / 2;
 
 		GridCellCoordinate[][] grid = new GridCellCoordinate[model.getRow().intValue()][model.getColumn().intValue()];
 
 		for (int i = 0; i < model.getRow(); i++) {
 			for (int j = 0; j < model.getColumn(); j++) {
 
-				double x = (i * model.getSize()) + halfSize;
-				double y = (j * model.getSize()) + halfSize;
+				double x = (j * model.getSize());
+				double y = (i * model.getSize());
 
 				grid[i][j] = new GridCellCoordinate(x, y);
-				System.out.println(grid[i][j]);
 			}
 		}
 

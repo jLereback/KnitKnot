@@ -27,11 +27,11 @@
 			<Insets bottom="5.0" top="5.0"/>
 		</VBox.margin>
 		<Label prefHeight="24.0" prefWidth="96.0" text="Maskor höjd"/>
-		<Spinner fx:id="rowSpinner" prefHeight="11.0" prefWidth="58.0" amountToStepBy="1.0" editable="true" max="500.0" min="10.0"/>
+		<Spinner fx:id="rowSpinner" prefHeight="11.0" prefWidth="58.0" amountToStepBy="1.0" editable="true" max="500.0" min="1.0"/>
 	</HBox>
 	<HBox prefHeight="23.0" prefWidth="180.0">
 		<Label prefHeight="24.0" prefWidth="96.0" text="Maskor bredd"/>
-		<Spinner fx:id="columnSpinner" prefHeight="11.0" prefWidth="58.0" amountToStepBy="1.0" editable="true" max="500.0" min="10.0"/>
+		<Spinner fx:id="columnSpinner" prefHeight="11.0" prefWidth="58.0" amountToStepBy="1.0" editable="true" max="500.0" min="1.0"/>
 	</HBox>
 	<HBox prefHeight="31.0" prefWidth="77.0">
 		<VBox.margin>

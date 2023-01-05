@@ -109,7 +109,8 @@ public class Controller {
 
 
 
-            //createNewShape(mouseEvent);
+            createNewShape(mouseEvent);
+
         }
 		model.getRedoDeque().clear();
     }
