@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import org.jlereback.knitknot.shapes.ShapeType;
+import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
 import org.jlereback.knitknot.shapes.shape.Shape;
 
 import java.util.ArrayDeque;
@@ -27,6 +28,7 @@ public class Model {
     private final DoubleProperty canvasWidth;
     private final BooleanProperty eraser;
     private final BooleanProperty brush;
+    private GridCellCoordinate[][] grid;
 
     public Model() {
         this.row = new SimpleObjectProperty<>(80.0);
@@ -46,6 +48,13 @@ public class Model {
         this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
     }
 
+    public GridCellCoordinate[][] getGrid() {
+        return grid;
+    }
+
+    public void setGrid(GridCellCoordinate[][] grid) {
+        this.grid = grid;
+    }
 
     public Double getRow() {
         return row.get();

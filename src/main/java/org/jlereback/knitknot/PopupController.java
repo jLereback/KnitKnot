@@ -35,17 +35,7 @@ public class PopupController {
 
 	public void createGrid() {
 
-		GridCellCoordinate[][] grid = new GridCellCoordinate[model.getRow().intValue()][model.getColumn().intValue()];
-
-		for (int i = 0; i < model.getRow(); i++) {
-			for (int j = 0; j < model.getColumn(); j++) {
-
-				double x = (j * model.getSize());
-				double y = (i * model.getSize());
-
-				grid[i][j] = new GridCellCoordinate(x, y);
-			}
-		}
+		initGridCellCoordinates();
 
 
 		ColumnConstraints column = new ColumnConstraints(model.getSize());
@@ -58,6 +48,24 @@ public class PopupController {
 		for (int i = 0; i < model.getRow(); i++) {
 			mainController.grid.getRowConstraints().add(row);
 		}
+	}
+
+	public void initGridCellCoordinates() {
+		GridCellCoordinate[][] grid = new GridCellCoordinate[model.getRow().intValue()][model.getColumn().intValue()];
+
+		double halfSize = model.getSize() / 2;
+
+		for (int i = 0; i < model.getRow(); i++) {
+			for (int j = 0; j < model.getColumn(); j++) {
+
+				double x = (j * model.getSize()) + halfSize;
+				double y = (i * model.getSize()) + halfSize;
+
+				grid[i][j] = new GridCellCoordinate(x, y, model.getSize().intValue());
+			}
+		}
+
+		model.setGrid(grid);
 	}
 
 	public void setMainController(Controller controller) {
