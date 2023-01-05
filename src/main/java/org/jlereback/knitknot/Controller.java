@@ -104,9 +104,14 @@ public class Controller {
     public void canvasClicked(MouseEvent mouseEvent) {
         if (mouseEvent.isControlDown() || mouseEvent.isShiftDown())
             shapeClicked(mouseEvent);
-        else
-            createNewShape(mouseEvent);
-        model.getRedoDeque().clear();
+        else {
+
+
+
+
+            //createNewShape(mouseEvent);
+        }
+		model.getRedoDeque().clear();
     }
     public void shapeClicked(MouseEvent mouseEvent) {
         if (mouseEvent.isControlDown() && mouseEvent.isShiftDown())
@@ -179,6 +184,7 @@ public class Controller {
                 .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
                 .reduce((first, second) -> second);
     }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -208,8 +214,7 @@ public class Controller {
     }
 
 
-    public void loadPopup() {
-        try {
+    public void loadPopup() throws IOException {
             //Load popup scene
             FXMLLoader popupLoader = new FXMLLoader(getClass().getResource("popupView.fxml"));
             Parent root = popupLoader.load();
@@ -220,6 +225,7 @@ public class Controller {
             //Pass whatever data you want. You can have multiple method calls here
             popupController.setMainController(this);
             popupController.setModel(model);
+            popupController.init();
 
             //Show popup in new window
             Stage stage = new Stage();
@@ -229,8 +235,6 @@ public class Controller {
             popupController.setPopupStage(stage);
 
             stage.show();
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
+
     }
 }

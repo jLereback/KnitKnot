@@ -5,6 +5,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
 
 public class PopupController {
 	public Button createButton;
@@ -16,7 +17,9 @@ public class PopupController {
 	public Model model;
 
 
-	public void initialize() {
+	public void init() {
+		rowSpinner.getValueFactory().valueProperty().bindBidirectional(model.rowProperty());
+		columnSpinner.getValueFactory().valueProperty().bindBidirectional(model.columnProperty());
 	}
 
 	public void createClicked() {
@@ -31,6 +34,22 @@ public class PopupController {
 	}
 
 	public void createGrid() {
+		double halfSize = model.getSize() / 2;
+
+		GridCellCoordinate[][] grid = new GridCellCoordinate[model.getRow().intValue()][model.getColumn().intValue()];
+
+		for (int i = 0; i < model.getRow(); i++) {
+			for (int j = 0; j < model.getColumn(); j++) {
+
+				double x = (i * model.getSize()) + halfSize;
+				double y = (j * model.getSize()) + halfSize;
+
+				grid[i][j] = new GridCellCoordinate(x, y);
+				System.out.println(grid[i][j]);
+			}
+		}
+
+
 		ColumnConstraints column = new ColumnConstraints(model.getSize());
 		mainController.grid.getColumnConstraints().clear();
 		for (int i = 0; i < model.getColumn(); i++) {
@@ -42,6 +61,7 @@ public class PopupController {
 			mainController.grid.getRowConstraints().add(row);
 		}
 	}
+
 	public void setMainController(Controller controller) {
 		this.mainController = controller;
 	}

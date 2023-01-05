@@ -42,7 +42,7 @@ public class Model {
         this.undoDeque = new ArrayDeque<>();
         this.redoDeque = new ArrayDeque<>();
         this.color = new SimpleObjectProperty<>(Color.web("#44966C"));
-        this.size = new SimpleObjectProperty<>(50.0);
+        this.size = new SimpleObjectProperty<>(20.0);
         this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
     }
 

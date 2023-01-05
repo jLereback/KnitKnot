@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17d2c393-ee53-4476-82ad-f4e13e3a5afc" name="Changes" comment="Initial Commit">
+    <list default="true" id="17d2c393-ee53-4476-82ad-f4e13e3a5afc" name="Changes" comment="Add working popupWindow">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/shapes/shape/GridCellCoordinate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/PopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/PopupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/popupView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/popupView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/view.fxml" afterDir="false" />
@@ -212,7 +213,19 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1672857887224</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="Add working popupWindow">
+      <created>1672920442136</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1672920442136</updated>
+    </task>
+    <task id="LOCAL−00006" summary="Add working popupWindow">
+      <created>1672920572526</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1672920572526</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +249,8 @@
     <MESSAGE value="Add disable chatSendButton" />
     <MESSAGE value="Add final touch" />
     <MESSAGE value="Initial Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
+    <MESSAGE value="Add working popupWindow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add working popupWindow" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Labb3_VG$ModelTest_setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape.ic" NAME="ModelTest.setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape Coverage Results" MODIFIED="1671464665157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
