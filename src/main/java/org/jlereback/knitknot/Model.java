@@ -33,8 +33,8 @@ public class Model {
 
 	public Model() {
 		this.cellList = FXCollections.observableArrayList();
-		this.row = new SimpleObjectProperty<>(80.0);
-		this.column = new SimpleObjectProperty<>(10.0);
+		this.row = new SimpleObjectProperty<>(20.0);
+		this.column = new SimpleObjectProperty<>(28.0);
 		this.canvasHeight = new SimpleDoubleProperty();
 		this.canvasWidth = new SimpleDoubleProperty();
 		this.undoVisible = new SimpleBooleanProperty(true);
@@ -53,13 +53,20 @@ public class Model {
 		return cellList;
 	}
 
-
 	public GridCellCoordinate[][] getGrid() {
 		return grid;
 	}
 
 	public void setGrid(GridCellCoordinate[][] grid) {
 		this.grid = grid;
+	}
+
+	public void setCanvasHeight(double canvasHeight) {
+		this.canvasHeight.set(canvasHeight);
+	}
+
+	public void setCanvasWidth(double canvasWidth) {
+		this.canvasWidth.set(canvasWidth);
 	}
 
 	public Double getRow() {

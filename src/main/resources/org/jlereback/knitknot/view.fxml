@@ -20,62 +20,71 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane minHeight="300.0" minWidth="350.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jlereback.knitknot.Controller">
+<?import org.jlereback.knitknot.tools.ResizableCanvas?>
+<BorderPane minHeight="300.0" minWidth="350.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="550.0"
+			xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="org.jlereback.knitknot.Controller">
 	<top>
 		<VBox prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER">
 			<AnchorPane prefHeight="200.0" prefWidth="200.0">
-				<MenuBar maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				<MenuBar maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="550.0"
+						 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<Menu text="File">
 						<Menu mnemonicParsing="false" text="New">
-							<MenuItem fx:id="newPattern" onAction="#loadPopup" text="Pattern" />
+							<MenuItem fx:id="newPattern" onAction="#showPopup" text="Pattern"/>
 						</Menu>
-						<MenuItem mnemonicParsing="false" text="Open" />
-						<SeparatorMenuItem />
-						<MenuItem fx:id="menuSave" onAction="#save" text="Save" />
-						<SeparatorMenuItem />
-						<MenuItem fx:id="menuExit" onAction="#exit" text="Exit" />
+						<MenuItem mnemonicParsing="false" text="Open"/>
+						<SeparatorMenuItem/>
+						<MenuItem fx:id="menuSave" onAction="#save" text="Save"/>
+						<SeparatorMenuItem/>
+						<MenuItem fx:id="menuExit" onAction="#exit" text="Exit"/>
 					</Menu>
 					<Menu text="Edit">
-						<MenuItem fx:id="menuUndo" onAction="#undoClicked" text="Undo" />
-						<MenuItem fx:id="menuRedo" onAction="#redoClicked" text="Redo" />
+						<MenuItem fx:id="menuUndo" onAction="#undoClicked" text="Undo"/>
+						<MenuItem fx:id="menuRedo" onAction="#redoClicked" text="Redo"/>
 					</Menu>
 					<Menu text="View">
-						<CheckMenuItem fx:id="viewUndo" selected="true" text="Show undo" />
-						<CheckMenuItem fx:id="viewRedo" selected="true" text="Show redo" />
+						<CheckMenuItem fx:id="viewUndo" selected="true" text="Show undo"/>
+						<CheckMenuItem fx:id="viewRedo" selected="true" text="Show redo"/>
 					</Menu>
 					<Menu text="Command">
-						<MenuItem disable="true" text="To change color, hold CTRL and click on specific shape" />
-						<MenuItem disable="true" text="To change size, hold SHIFT and click on specific shape" />
+						<MenuItem disable="true" text="To change color, hold CTRL and click on specific shape"/>
+						<MenuItem disable="true" text="To change size, hold SHIFT and click on specific shape"/>
 					</Menu>
 				</MenuBar>
 			</AnchorPane>
 			<ToolBar prefHeight="35.0" prefWidth="596.0">
-				<ChoiceBox fx:id="shapeType" prefWidth="100.0" />
-				<ColorPicker fx:id="colorPicker" prefWidth="100.0" />
-				<Spinner fx:id="sizeSpinner" amountToStepBy="2.0" editable="true" max="500.0" min="2.0" prefWidth="75.0" />
+				<ChoiceBox fx:id="shapeType" prefWidth="100.0"/>
+				<ColorPicker fx:id="colorPicker" prefWidth="100.0"/>
+				<Spinner fx:id="sizeSpinner" amountToStepBy="2.0" editable="true" max="500.0" min="2.0"
+						 prefWidth="75.0"/>
 				<ToggleButton fx:id="brush" onAction="#toggleBrush" text="Brush">
 					<toggleGroup>
-						<ToggleGroup fx:id="equipment" />
+						<ToggleGroup fx:id="equipment"/>
 					</toggleGroup>
 				</ToggleButton>
-				<ToggleButton fx:id="eraser" onAction="#toggleEraser" text="Eraser" toggleGroup="$equipment" />
-				<Button fx:id="undoButton" onAction="#undoClicked" text="Undo" />
-				<Button fx:id="redoButton" onAction="#redoClicked" text="Redo" />
-				<Button onAction="#resetClicked" text="Reset" />
+				<ToggleButton fx:id="eraser" onAction="#toggleEraser" text="Eraser" toggleGroup="$equipment"/>
+				<Button fx:id="undoButton" onAction="#undoClicked" text="Undo"/>
+				<Button fx:id="redoButton" onAction="#redoClicked" text="Redo"/>
+				<Button onAction="#resetClicked" text="Reset"/>
 			</ToolBar>
 		</VBox>
 	</top>
 	<center>
-		<AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
-			<GridPane fx:id="grid" gridLinesVisible="true" layoutX="168.0" layoutY="195.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-				<AnchorPane BorderPane.alignment="TOP_LEFT" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowSpan="2147483647" GridPane.valignment="TOP">
-					<Canvas fx:id="paintingArea" height="389.0" onMouseClicked="#canvasClicked" onMouseDragged="#shapeClicked" width="550.0" />
+		<AnchorPane BorderPane.alignment="TOP_LEFT">
+			<GridPane fx:id="grid" gridLinesVisible="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
+					  AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+				<AnchorPane BorderPane.alignment="TOP_LEFT" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT"
+							GridPane.rowSpan="2147483647" GridPane.valignment="TOP">
+					<ResizableCanvas fx:id="paintingArea" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+									 AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" onMouseClicked="#canvasClicked"
+									 onMouseDragged="#shapeClicked"/>
 				</AnchorPane>
 				<columnConstraints>
-					<ColumnConstraints />
+					<ColumnConstraints/>
 				</columnConstraints>
 				<rowConstraints>
-					<RowConstraints />
+					<RowConstraints/>
 				</rowConstraints>
 			</GridPane>
 		</AnchorPane>

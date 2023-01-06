@@ -11,12 +11,12 @@ public class ResizableCanvas extends Canvas {
 
     @Override
     public double minWidth(double height) {
-        return 350;
+        return 0;
     }
 
     @Override
     public double minHeight(double width) {
-        return 240;
+        return 0;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.jlereback.knitknot.command;
 
 import org.jlereback.knitknot.Model;
-import org.jlereback.knitknot.command.Command;
 import org.jlereback.knitknot.shapes.shape.FilledCell;
 
 public class EditCommand implements Command {

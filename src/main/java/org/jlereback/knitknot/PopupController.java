@@ -39,6 +39,7 @@ public class PopupController {
 
 		initGridCellCoordinates();
 
+		setCanvasSize();
 
 		ColumnConstraints column = new ColumnConstraints(model.getSize());
 		mainController.grid.getColumnConstraints().clear();
@@ -50,6 +51,14 @@ public class PopupController {
 		for (int i = 0; i < model.getRow(); i++) {
 			mainController.grid.getRowConstraints().add(row);
 		}
+	}
+
+	private void setCanvasSize() {
+		int canvasHeight = (int) (model.getRow() * model.getSize());
+		int canvasWidth = (int) (model.getColumn() * model.getSize());
+
+		model.setCanvasHeight(canvasHeight);
+		model.setCanvasWidth(canvasWidth);
 	}
 
 	public void initGridCellCoordinates() {

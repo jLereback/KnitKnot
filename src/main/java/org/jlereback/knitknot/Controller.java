@@ -1,6 +1,7 @@
 package org.jlereback.knitknot;
 
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,8 +42,9 @@ public class Controller {
 	public Model model = new Model();
 	ShapeFactory shapeFactory = new ShapeFactory();
 	private Stage stage;
+	private static PopupController popupController;
+	private static Stage popupStage;
 	public GraphicsContext context;
-	public ShapeParameter shapeParameter;
 	public ChoiceBox<ShapeType> shapeType;
 	public Spinner<Double> sizeSpinner;
 	public ColorPicker colorPicker;
@@ -70,16 +72,24 @@ public class Controller {
 
 
 		preparePaintingArea();
+
+
+		try {
+			loadPopup();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		popupController.createGrid();
 	}
 
 	private void initPaintingArea() {
 		context = paintingArea.getGraphicsContext2D();
 
-/*        paintingArea.widthProperty().bindBidirectional(model.canvasWidthProperty());
+        paintingArea.widthProperty().bindBidirectional(model.canvasWidthProperty());
         paintingArea.heightProperty().bindBidirectional(model.canvasHeightProperty());
 
         paintingArea.widthProperty().addListener(observable -> draw());
-        paintingArea.heightProperty().addListener(observable -> draw());*/
+        paintingArea.heightProperty().addListener(observable -> draw());
 	}
 
 	private void initShape() {
@@ -157,7 +167,7 @@ public class Controller {
 
 	private void preparePaintingArea() {
 		context.setFill(BACKGROUND_COLOR);
-		context.fillRect(0, 0, paintingArea.getWidth(), paintingArea.getWidth());
+		context.fillRect(0, 0, paintingArea.getWidth(), paintingArea.getHeight());
 	}
 
 	public void undoClicked() {
@@ -192,8 +202,6 @@ public class Controller {
 
 		command.execute();
 		model.getUndoDeque().add(command);
-
-
 	}
 
 	public void setStage(Stage stage) {
@@ -237,7 +245,7 @@ public class Controller {
 		Parent root = popupLoader.load();
 
 		//Get controller of popup
-		PopupController popupController = popupLoader.getController();
+		popupController = popupLoader.getController();
 
 		//Pass whatever data you want. You can have multiple method calls here
 		popupController.setMainController(this);
@@ -245,13 +253,18 @@ public class Controller {
 		popupController.init();
 
 		//Show popup in new window
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root));
-		stage.setTitle("New Pattern");
+		popupStage = new Stage();
+		popupStage.setScene(new Scene(root));
+		popupStage.setTitle("New Pattern");
 
 		popupController.setPopupStage(stage);
 
-		stage.show();
-
 	}
+
+
+	public void showPopup() {
+		popupStage.show();
+	}
+
+
 }
