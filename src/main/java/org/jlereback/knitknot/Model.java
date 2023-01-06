@@ -1,219 +1,203 @@
 package org.jlereback.knitknot;
 
 import javafx.beans.property.*;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import org.jlereback.knitknot.shapes.ShapeType;
 import org.jlereback.knitknot.shapes.shape.FilledCell;
 import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
-import org.jlereback.knitknot.shapes.shape.Shape;
+import org.jlereback.knitknot.command.Command;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Model {
 
-    private final ObservableList<ShapeType> choiceBoxShapeList;
-    private final ObjectProperty<ShapeType> shapeType;
-    private final ObservableList<Shape> shapeList;
-    private final Deque<Deque<Shape>> undoDeque;
-    private final Deque<Deque<Shape>> redoDeque;
-    private final ObjectProperty<Double> size;
-    private final ObjectProperty<Double> row;
-    private final ObjectProperty<Double> column;
-    private final ObjectProperty<Color> color;
-    private final BooleanProperty undoVisible;
-    private final BooleanProperty redoVisible;
-    private final DoubleProperty canvasHeight;
-    private final DoubleProperty canvasWidth;
-    private final BooleanProperty eraser;
-    private final BooleanProperty brush;
-    private final ObservableList<FilledCell> cellList;
-    private GridCellCoordinate[][] grid;
+	private final ObservableList<ShapeType> choiceBoxShapeList;
+	private final ObjectProperty<ShapeType> shapeType;
+	private final ObservableList<FilledCell> cellList;
+	private final Deque<Command> undoDeque;
+	private final Deque<Command> redoDeque;
+	private final ObjectProperty<Double> size;
+	private final ObjectProperty<Double> row;
+	private final ObjectProperty<Double> column;
+	private final ObjectProperty<Color> color;
+	private final BooleanProperty undoVisible;
+	private final BooleanProperty redoVisible;
+	private final DoubleProperty canvasHeight;
+	private final DoubleProperty canvasWidth;
+	private final BooleanProperty eraser;
+	private final BooleanProperty brush;
+	private GridCellCoordinate[][] grid;
 
-    public Model() {
-        this.cellList = FXCollections.observableArrayList();
-        this.row = new SimpleObjectProperty<>(80.0);
-        this.column = new SimpleObjectProperty<>(10.0);
-        this.canvasHeight = new SimpleDoubleProperty();
-        this.canvasWidth = new SimpleDoubleProperty();
-        this.undoVisible = new SimpleBooleanProperty(true);
-        this.redoVisible = new SimpleBooleanProperty(true);
-        this.eraser = new SimpleBooleanProperty(false);
-        this.brush = new SimpleBooleanProperty(false);
-        this.choiceBoxShapeList = FXCollections.observableArrayList(ShapeType.values());
-        this.shapeList = FXCollections.observableArrayList();
-        this.undoDeque = new ArrayDeque<>();
-        this.redoDeque = new ArrayDeque<>();
-        this.color = new SimpleObjectProperty<>(Color.web("#44966C"));
-        this.size = new SimpleObjectProperty<>(20.0);
-        this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
-    }
+	public Model() {
+		this.cellList = FXCollections.observableArrayList();
+		this.row = new SimpleObjectProperty<>(80.0);
+		this.column = new SimpleObjectProperty<>(10.0);
+		this.canvasHeight = new SimpleDoubleProperty();
+		this.canvasWidth = new SimpleDoubleProperty();
+		this.undoVisible = new SimpleBooleanProperty(true);
+		this.redoVisible = new SimpleBooleanProperty(true);
+		this.eraser = new SimpleBooleanProperty(false);
+		this.brush = new SimpleBooleanProperty(false);
+		this.choiceBoxShapeList = FXCollections.observableArrayList(ShapeType.values());
+		this.undoDeque = new ArrayDeque<>();
+		this.redoDeque = new ArrayDeque<>();
+		this.color = new SimpleObjectProperty<>(Color.web("#44966C"));
+		this.size = new SimpleObjectProperty<>(20.0);
+		this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
+	}
 
-    public ObservableList<FilledCell> getCellList() {
-        return cellList;
-    }
+	public ObservableList<FilledCell> getCellList() {
+		return cellList;
+	}
 
 
-    public GridCellCoordinate[][] getGrid() {
-        return grid;
-    }
+	public GridCellCoordinate[][] getGrid() {
+		return grid;
+	}
 
-    public void setGrid(GridCellCoordinate[][] grid) {
-        this.grid = grid;
-    }
+	public void setGrid(GridCellCoordinate[][] grid) {
+		this.grid = grid;
+	}
 
-    public Double getRow() {
-        return row.get();
-    }
+	public Double getRow() {
+		return row.get();
+	}
 
-    public ObjectProperty<Double> rowProperty() {
-        return row;
-    }
+	public ObjectProperty<Double> rowProperty() {
+		return row;
+	}
 
-    public void setRow(Double row) {
-        this.row.set(row);
-    }
+	public void setRow(Double row) {
+		this.row.set(row);
+	}
 
-    public Double getColumn() {
-        return column.get();
-    }
+	public Double getColumn() {
+		return column.get();
+	}
 
-    public ObjectProperty<Double> columnProperty() {
-        return column;
-    }
+	public ObjectProperty<Double> columnProperty() {
+		return column;
+	}
 
-    public void setColumn(Double column) {
-        this.column.set(column);
-    }
+	public void setColumn(Double column) {
+		this.column.set(column);
+	}
 
-    public double getCanvasWidth() {
-        return canvasWidth.get();
-    }
+	public double getCanvasWidth() {
+		return canvasWidth.get();
+	}
 
-    public DoubleProperty canvasWidthProperty() {
-        return canvasWidth;
-    }
-    public double getCanvasHeight() {
-        return canvasHeight.get();
-    }
-    public DoubleProperty canvasHeightProperty() {
-        return canvasHeight;
-    }
+	public DoubleProperty canvasWidthProperty() {
+		return canvasWidth;
+	}
 
-    public ObjectProperty<ShapeType> shapeTypeProperty() {
-        return shapeType;
-    }
+	public double getCanvasHeight() {
+		return canvasHeight.get();
+	}
 
-    public ShapeType getShapeType() {
-        return shapeType.get();
-    }
+	public DoubleProperty canvasHeightProperty() {
+		return canvasHeight;
+	}
 
-    public void setShapeType(ShapeType shapeType) {
-        this.shapeType.set(shapeType);
-    }
+	public ObjectProperty<ShapeType> shapeTypeProperty() {
+		return shapeType;
+	}
 
-    public Property<Double> sizeProperty() {
-        return size;
-    }
+	public ShapeType getShapeType() {
+		return shapeType.get();
+	}
 
-    public Double getSize() {
-        return size.get();
-    }
+	public void setShapeType(ShapeType shapeType) {
+		this.shapeType.set(shapeType);
+	}
 
-    public ObjectProperty<Color> colorProperty() {
-        return color;
-    }
+	public Property<Double> sizeProperty() {
+		return size;
+	}
 
-    public Color getColor() {
-        return color.get();
-    }
+	public Double getSize() {
+		return size.get();
+	}
 
-    public BooleanProperty undoVisibleProperty() {
-        return undoVisible;
-    }
+	public ObjectProperty<Color> colorProperty() {
+		return color;
+	}
 
-    public BooleanProperty redoVisibleProperty() {
-        return redoVisible;
-    }
+	public Color getColor() {
+		return color.get();
+	}
 
-    public boolean isEraser() {
-        return eraser.get();
-    }
+	public BooleanProperty undoVisibleProperty() {
+		return undoVisible;
+	}
 
-    public BooleanProperty eraserProperty() {
-        return eraser;
-    }
+	public BooleanProperty redoVisibleProperty() {
+		return redoVisible;
+	}
 
-    public boolean isBrush() {
-        return brush.get();
-    }
+	public boolean isEraser() {
+		return eraser.get();
+	}
 
-    public BooleanProperty brushProperty() {
-        return brush;
-    }
+	public BooleanProperty eraserProperty() {
+		return eraser;
+	}
 
-    public ObservableList<ShapeType> getChoiceBoxShapeList() {
-        return choiceBoxShapeList;
-    }
+	public boolean isBrush() {
+		return brush.get();
+	}
 
-    public ObservableList<Shape> getShapeList() {
-        return shapeList;
-    }
+	public BooleanProperty brushProperty() {
+		return brush;
+	}
 
-    public Deque<Deque<Shape>> getUndoDeque() {
-        return undoDeque;
-    }
-
-    public Deque<Deque<Shape>> getRedoDeque() {
-        return redoDeque;
-    }
+	public ObservableList<ShapeType> getChoiceBoxShapeList() {
+		return choiceBoxShapeList;
+	}
 
 
-    public void undo() {
-        if (undoDeque.isEmpty())
-            return;
+	public Deque<Command> getUndoDeque() {
+		return undoDeque;
+	}
 
-        addToRedoDeque();
-        shapeList.clear();
-        shapeList.addAll(undoDeque.removeLast());
-    }
+	public Deque<Command> getRedoDeque() {
+		return redoDeque;
+	}
 
-    public void redo() {
-        if (redoDeque.isEmpty())
-            return;
 
-        addToUndoDeque();
-        shapeList.clear();
-        shapeList.addAll(redoDeque.removeLast());
-    }
+	public void undo() {
+		if (undoDeque.isEmpty())
+			return;
 
-    public Deque<Shape> getTempList() {
-        Deque<Shape> tempList = new ArrayDeque<>();
-        for (Shape shape : shapeList)
-            tempList.add(shape.getShapeDuplicate());
-        return tempList;
-    }
+		Command command = undoDeque.removeLast();
+		command.undo();
+		redoDeque.add(command);
+	}
 
-    public void updateShapeList() {
-        Deque<Shape> tempList = getTempList();
-        shapeList.clear();
-        shapeList.addAll(tempList);
-    }
+	public void redo() {
+		if (redoDeque.isEmpty())
+			return;
+		Command command = redoDeque.removeLast();
+		command.execute();
+		undoDeque.add(command);
+	}
 
-    public void addToUndoDeque() {
-        undoDeque.addLast(getTempList());
-    }
+	public Deque<FilledCell> getTempList() {
+		Deque<FilledCell> tempList = new ArrayDeque<>();
+		for (FilledCell cell : cellList)
+			tempList.add(cell.getShapeDuplicate());
+		return tempList;
+	}
 
-    public void addToRedoDeque() {
-        redoDeque.addLast(getTempList());
-    }
+	public void updateShapeList() {
+		Deque<FilledCell> tempList = getTempList();
+		cellList.clear();
+		cellList.addAll(tempList);
+	}
 
-    public void addShapeToList(Shape shape) {
-        shapeList.add(shape);
-    }
-
-    public void sendToList(Shape shape) {
-        addShapeToList(shape);
-    }
+	public void addToUndoDeque() {
+	}
 }

@@ -1,7 +1,6 @@
 package org.jlereback.knitknot;
 
 import javafx.collections.ListChangeListener;
-import javafx.collections.MapChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,10 +19,13 @@ import org.jlereback.knitknot.shapes.ShapeParameter;
 import org.jlereback.knitknot.shapes.ShapeType;
 import org.jlereback.knitknot.shapes.shape.FilledCell;
 import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
-import org.jlereback.knitknot.shapes.shape.Shape;
+import org.jlereback.knitknot.command.AddCommand;
+import org.jlereback.knitknot.command.Command;
+import org.jlereback.knitknot.command.EditCommand;
 import org.jlereback.knitknot.tools.SVGWriter;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
@@ -114,9 +116,8 @@ public class Controller {
 			shapeClicked(mouseEvent);
 		else {
 
-			findCell(mouseEvent);
+			getCell(mouseEvent);
 
-			//createNewShape(mouseEvent);
 			//System.out.println(mouseEvent.getX());
 			//System.out.println(mouseEvent.getY());
 
@@ -125,46 +126,33 @@ public class Controller {
 	}
 
 	public void shapeClicked(MouseEvent mouseEvent) {
-		if (mouseEvent.isControlDown() && mouseEvent.isShiftDown())
-			updateShape(mouseEvent);
-		else if (mouseEvent.isControlDown())
+		if (mouseEvent.isControlDown())
 			updateColor(mouseEvent);
-		else if (mouseEvent.isShiftDown())
-			updateSize(mouseEvent);
 		else return;
 		model.getRedoDeque().clear();
 	}
 
-	private void findCell(MouseEvent mouseEvent) {
-		var grid = model.getGrid();
-		for (int i = 0; i < model.getRow(); i++) {
-			for (int j = 0; j < model.getColumn(); j++) {
-				if (grid[i][j].isInsideCell(mouseEvent.getX(), mouseEvent.getY())) {
-
-					grid[i][j].draw(context, model);
-				}
-			}
-		}
+	private void getCell(MouseEvent mouseEvent) {
+		Arrays.stream(model.getGrid()).flatMap(Arrays::stream)
+				.filter(point -> point.isInsideCell(mouseEvent.getX(), mouseEvent.getY()))
+				.findFirst().ifPresent(this::setAddCommand);
 	}
 
-	private void createNewShape(MouseEvent mouseEvent) {
-		createNewShapeParameter(mouseEvent.getX(), mouseEvent.getY());
-
-		model.addToUndoDeque();
-		model.sendToList(shapeFactory.getShape(model.getShapeType(), shapeParameter));
+	private Optional<FilledCell> findCellInList(MouseEvent mouseEvent) {
+		return model.getCellList().stream()
+				.filter(filledCell -> filledCell.getCell().isInsideCell(mouseEvent.getX(), mouseEvent.getY()))
+				.findFirst();
 	}
 
-	private void createNewShapeParameter(double posX, double posY) {
-		shapeParameter = new ShapeParameter(posX, posY, model.getSize(), model.getColor());
+	private void setAddCommand(GridCellCoordinate gridCell) {
+		Command addCommand = new AddCommand(new FilledCell(gridCell, model.getColor()), model);
+		addCommand.execute();
+		model.getUndoDeque().add(addCommand);
 	}
 
 	private void draw() {
 		preparePaintingArea();
 		model.getCellList().forEach(cell -> cell.draw(context, model));
-		System.out.println();
-/*		model.getGridCellMap().stream()
-				.filter(gridCellCoordinate -> gridCellCoordinate.getColor() != Color.TRANSPARENT)
-				.forEach(cell -> cell.draw(context, model));*/
 	}
 
 	private void preparePaintingArea() {
@@ -181,47 +169,31 @@ public class Controller {
 	}
 
 	private void erase(MouseEvent mouseEvent) {
-		if (findShape(mouseEvent).isEmpty())
+		if (findCellInList(mouseEvent).isEmpty())
 			return;
 		model.addToUndoDeque();
-		findShape(mouseEvent).ifPresent(shape -> model.getShapeList().remove(shape));
 	}
 
 	public void resetClicked() {
 		model.getRedoDeque().clear();
 		model.addToUndoDeque();
 		preparePaintingArea();
-		model.getShapeList().clear();
-	}
-
-	public void updateShape(MouseEvent mouseEvent) {
-		if (findShape(mouseEvent).isEmpty())
-			return;
-		model.addToUndoDeque();
-		findShape(mouseEvent).ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
-		model.updateShapeList();
+		model.getCellList().clear();
 	}
 
 	private void updateColor(MouseEvent mouseEvent) {
-		if (findShape(mouseEvent).isEmpty())
+		if (findCellInList(mouseEvent).isEmpty())
 			return;
-		model.addToUndoDeque();
-		findShape(mouseEvent).ifPresent(shape -> shape.setColor(model.getColor()));
-		model.updateShapeList();
-	}
+		FilledCell oldCell = findCellInList(mouseEvent).get();
 
-	private void updateSize(MouseEvent mouseEvent) {
-		if (findShape(mouseEvent).isEmpty())
-			return;
-		model.addToUndoDeque();
-		findShape(mouseEvent).ifPresent(shape -> shape.setSize(model.getSize()));
-		model.updateShapeList();
-	}
+		FilledCell newCell = new FilledCell(oldCell.getCell(), model.getColor());
 
-	private Optional<Shape> findShape(MouseEvent mouseEvent) {
-		return model.getShapeList().stream()
-				.filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
-				.reduce((first, second) -> second);
+		Command command = new EditCommand(oldCell, newCell, model, model.getCellList().indexOf(oldCell));
+
+		command.execute();
+		model.getUndoDeque().add(command);
+
+
 	}
 
 	public void setStage(Stage stage) {
@@ -242,6 +214,10 @@ public class Controller {
 			paintingArea.setOnMouseClicked(this::canvasClicked);
 		} else
 			paintingArea.setOnMouseDragged(this::shapeClicked);
+	}
+
+	private void createNewShape(MouseEvent mouseEvent) {
+
 	}
 
 	public void toggleEraser() {

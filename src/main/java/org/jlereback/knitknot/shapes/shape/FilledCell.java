@@ -13,12 +13,13 @@ public class FilledCell {
 		this.color = color;
 	}
 	public void draw(GraphicsContext context, Model model) {
-		context.setFill(model.getColor());
-		context.fillRect(cell.getX() - model.getSize() / 2,
-				cell.getY() - model.getSize() / 2,
-				cell.getSize(),
-				cell.getSize());
+		context.setFill(color);
+		context.fillRect(cell.x() - model.getSize() / 2,
+				cell.y() - model.getSize() / 2,
+				cell.size(),
+				cell.size());
 	}
+
 
 	public GridCellCoordinate getCell() {
 		return cell;
@@ -30,5 +31,9 @@ public class FilledCell {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public FilledCell getShapeDuplicate() {
+		return null;
 	}
 }

@@ -13,4 +13,6 @@ module se.iths.labb {
     exports org.jlereback.knitknot.tools;
     exports org.jlereback.knitknot.shapes.shape;
     opens org.jlereback.knitknot.shapes.shape to javafx.fxml;
+	exports org.jlereback.knitknot.command;
+	opens org.jlereback.knitknot.command;
 }

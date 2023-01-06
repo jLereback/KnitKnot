@@ -33,11 +33,11 @@ class ModelTest {
 
     private void prepareShapeListAndUndoDeque() {
         model.addToUndoDeque();
-        model.getShapeList().add(mediumCircle);
+        model.getCellList().add(mediumCircle);
         model.addToUndoDeque();
-        model.getShapeList().add(smallSquare);
+        model.getCellList().add(smallSquare);
         model.addToUndoDeque();
-        model.getShapeList().add(bigCircle);
+        model.getCellList().add(bigCircle);
     }
 
     @Test
@@ -64,7 +64,7 @@ class ModelTest {
         prepareShapeListAndUndoDeque();
 
         model.undo();
-        int expected = model.getShapeList().size() - 1;
+        int expected = model.getCellList().size() - 1;
         int actual = model.getUndoDeque().getLast().size();
 
         assertEquals(expected, actual, "UndoDeque´s last element should have the size of ShapeList - 1");
@@ -75,7 +75,7 @@ class ModelTest {
         prepareShapeListAndUndoDeque();
 
         model.undo();
-        int expected = model.getShapeList().size();
+        int expected = model.getCellList().size();
         int actual = model.getUndoDeque().size();
 
         assertEquals(expected, actual, "UndoDeque should have the same size as shapeList");
