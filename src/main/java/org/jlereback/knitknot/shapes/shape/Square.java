@@ -24,7 +24,7 @@ public final class Square extends Shape {
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(getColor());
-        context.fillRect(getX() - halfSideSize, getY() - halfSideSize, getSize(), getSize());
+        context.fillRect(getX(), getY(), getSize(), getSize());
     }
 
     @Override
@@ -41,8 +41,8 @@ public final class Square extends Shape {
 
     @Override
     public String toString() {
-        return "<rect x=\"" + String.format(Locale.UK,"%.2f",(getX() - halfSideSize)) + "\" " +
-                "y=\"" + String.format(Locale.UK, "%.2f", (getY() - halfSideSize)) + "\" " +
+        return "<rect x=\"" + String.format(Locale.UK,"%.2f",(getX())) + "\" " +
+                "y=\"" + String.format(Locale.UK, "%.2f", (getY())) + "\" " +
                 "width=\"" + getSize() + "\" " +
                 "height=\"" + getSize() + "\" " +
                 "fill=\"#" + colorAsString + "\" />";

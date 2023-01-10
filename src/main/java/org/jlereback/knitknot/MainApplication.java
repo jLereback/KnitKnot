@@ -19,6 +19,7 @@ public class MainApplication extends Application {
         controller.setStage(stage);
 
         stage.setTitle("KnitKnot");
+        scene.getStylesheets().add(String.valueOf(MainApplication.class.getResource("main.css")));
         stage.setScene(scene);
         stage.getIcons().add(new Image(Objects.requireNonNull(MainApplication.class.getResourceAsStream("JavaDuke.png"))));
 

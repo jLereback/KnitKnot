@@ -40,7 +40,6 @@ public class Controller {
 	static final Color BACKGROUND_COLOR = Color.web("#edece0");
 
 	public Model model = new Model();
-	ShapeFactory shapeFactory = new ShapeFactory();
 	private Stage stage;
 	private static PopupController popupController;
 	private static Stage popupStage;
@@ -51,7 +50,6 @@ public class Controller {
 	public CheckMenuItem viewRedo;
 	public CheckMenuItem viewUndo;
 	public ToggleGroup equipment;
-	public Canvas paintingArea;
 	public ToggleButton eraser;
 	public MenuItem newPattern;
 	public ToggleButton brush;
@@ -83,13 +81,13 @@ public class Controller {
 	}
 
 	private void initPaintingArea() {
-		context = paintingArea.getGraphicsContext2D();
+/*		context = paintingArea.getGraphicsContext2D();
 
         paintingArea.widthProperty().bindBidirectional(model.canvasWidthProperty());
         paintingArea.heightProperty().bindBidirectional(model.canvasHeightProperty());
 
-        paintingArea.widthProperty().addListener(observable -> draw());
-        paintingArea.heightProperty().addListener(observable -> draw());
+        paintingArea.widthProperty().addListener(observable -> draw(context));
+        paintingArea.heightProperty().addListener(observable -> draw(context));*/
 	}
 
 	private void initShape() {
@@ -100,7 +98,9 @@ public class Controller {
 
 		sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
-		model.getCellList().addListener((ListChangeListener<FilledCell>) onChange -> draw());
+/*
+		model.getCellList().addListener((ListChangeListener<FilledCell>) onChange -> draw(context));
+*/
 	}
 
 	private void initButtons() {
@@ -141,7 +141,6 @@ public class Controller {
 		else return;
 		model.getRedoDeque().clear();
 	}
-
 	private void getCell(MouseEvent mouseEvent) {
 		Arrays.stream(model.getGrid()).flatMap(Arrays::stream)
 				.filter(point -> point.isInsideCell(mouseEvent.getX(), mouseEvent.getY()))
@@ -160,14 +159,16 @@ public class Controller {
 		model.getUndoDeque().add(addCommand);
 	}
 
-	private void draw() {
+	void draw(GraphicsContext context) {
 		preparePaintingArea();
 		model.getCellList().forEach(cell -> cell.draw(context, model));
 	}
 
 	private void preparePaintingArea() {
+/*
 		context.setFill(BACKGROUND_COLOR);
 		context.fillRect(0, 0, paintingArea.getWidth(), paintingArea.getHeight());
+*/
 	}
 
 	public void undoClicked() {
@@ -181,12 +182,10 @@ public class Controller {
 	private void erase(MouseEvent mouseEvent) {
 		if (findCellInList(mouseEvent).isEmpty())
 			return;
-		model.addToUndoDeque();
 	}
 
 	public void resetClicked() {
 		model.getRedoDeque().clear();
-		model.addToUndoDeque();
 		preparePaintingArea();
 		model.getCellList().clear();
 	}
@@ -217,11 +216,11 @@ public class Controller {
 	}
 
 	public void toggleBrush() {
-		if (model.isBrush()) {
+/*		if (model.isBrush()) {
 			paintingArea.setOnMouseDragged(this::createNewShape);
 			paintingArea.setOnMouseClicked(this::canvasClicked);
 		} else
-			paintingArea.setOnMouseDragged(this::shapeClicked);
+			paintingArea.setOnMouseDragged(this::shapeClicked);*/
 	}
 
 	private void createNewShape(MouseEvent mouseEvent) {
@@ -229,13 +228,13 @@ public class Controller {
 	}
 
 	public void toggleEraser() {
-		if (model.isEraser()) {
+/*		if (model.isEraser()) {
 			paintingArea.setOnMouseDragged(this::erase);
 			paintingArea.setOnMouseClicked(this::erase);
 		} else {
 			paintingArea.setOnMouseDragged(this::shapeClicked);
 			paintingArea.setOnMouseClicked(this::canvasClicked);
-		}
+		}*/
 	}
 
 
@@ -257,7 +256,7 @@ public class Controller {
 		popupStage.setScene(new Scene(root));
 		popupStage.setTitle("New Pattern");
 
-		popupController.setPopupStage(stage);
+		popupController.setPopupStage(popupStage);
 
 	}
 

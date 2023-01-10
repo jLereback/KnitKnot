@@ -165,7 +165,6 @@ public class Model {
 		return choiceBoxShapeList;
 	}
 
-
 	public Deque<Command> getUndoDeque() {
 		return undoDeque;
 	}
@@ -190,21 +189,5 @@ public class Model {
 		Command command = redoDeque.removeLast();
 		command.execute();
 		undoDeque.add(command);
-	}
-
-	public Deque<FilledCell> getTempList() {
-		Deque<FilledCell> tempList = new ArrayDeque<>();
-		for (FilledCell cell : cellList)
-			tempList.add(cell.getShapeDuplicate());
-		return tempList;
-	}
-
-	public void updateShapeList() {
-		Deque<FilledCell> tempList = getTempList();
-		cellList.clear();
-		cellList.addAll(tempList);
-	}
-
-	public void addToUndoDeque() {
 	}
 }

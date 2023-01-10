@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17d2c393-ee53-4476-82ad-f4e13e3a5afc" name="Changes" comment="Add undo and redo as Command Pattern">
+    <list default="true" id="17d2c393-ee53-4476-82ad-f4e13e3a5afc" name="Changes" comment="Add ResizableCanvas">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/PopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/PopupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/command/EditCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/command/EditCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/tools/ResizableCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/tools/ResizableCanvas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/shapes/shape/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/shapes/shape/Square.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +77,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Billy\IdeaProjects\KnitKnot\src\main\resources\se\iths\labb" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Billy\IdeaProjects\KnitKnot\src\main\resources\org\jlereback\knitknot" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.jlereback.knitknot" />
@@ -191,6 +195,10 @@
       <workItem from="1672854532884" />
       <workItem from="1672918402115" />
       <workItem from="1673006891479" />
+      <workItem from="1673170448663" />
+      <workItem from="1673282547269" />
+      <workItem from="1673365000059" />
+      <workItem from="1673367530719" />
     </task>
     <task id="LOCAL−00001" summary="Add disable chatSendButton">
       <created>1668098343604</created>
@@ -258,7 +266,13 @@
       <option name="presentableId" value="LOCAL−00011" />
       <updated>1673013716681</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL−00012" summary="Add ResizableCanvas">
+      <created>1673017563927</created>
+      <option name="number" value="LOCAL−00012" />
+      <option name="presentableId" value="LOCAL−00012" />
+      <updated>1673017563927</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,18 +301,8 @@
     <MESSAGE value="Add fillFunction in gridCells" />
     <MESSAGE value="Add some things" />
     <MESSAGE value="Add undo and redo as Command Pattern" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add undo and redo as Command Pattern" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/PopupController.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Add ResizableCanvas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add ResizableCanvas" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Labb3_VG$ModelTest_setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape.ic" NAME="ModelTest.setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape Coverage Results" MODIFIED="1671464665157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

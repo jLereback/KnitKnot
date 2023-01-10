@@ -1,12 +1,16 @@
 package org.jlereback.knitknot;
 
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.jlereback.knitknot.shapes.ShapeFactory;
 import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
 
 public class PopupController {
@@ -51,6 +55,113 @@ public class PopupController {
 		for (int i = 0; i < model.getRow(); i++) {
 			mainController.grid.getRowConstraints().add(row);
 		}
+
+
+		for (int i = 0; i < model.getColumn(); i++) {
+			for (int j = 0; j < model.getRow(); j++) {
+				AnchorPane pane = new AnchorPane();
+				/*Canvas pane = new Canvas();
+				GraphicsContext context = pane.getGraphicsContext2D();*/
+
+				int finalI = i;
+				int finalJ = j;
+				pane.setOnMouseClicked((event) -> {
+					if (finalI % 5 == 0 && finalJ % 5 == 0)
+						pane.getChildren().add(Anims.fillRowCorner(mainController.model));
+					else if (finalI % 5 == 0)
+						pane.getChildren().add(Anims.fillColumnEdge(mainController.model));
+					else if (finalJ % 5 == 0)
+						pane.getChildren().add(Anims.fillRowEdge(mainController.model));
+
+					else
+						pane.getChildren().add(Anims.fillCell(mainController.model));
+						}
+				);
+
+				pane.getStyleClass().add("game-grid-cell");
+				if (i % 5 == 0) {
+					pane.getStyleClass().add("first-column");
+				}
+				if (j % 5 == 0) {
+					pane.getStyleClass().add("first-row");
+				}
+				mainController.grid.add(pane, i, j);
+			}
+		}
+	}
+
+	public static class Anims {
+		static ShapeFactory shapeFactory;
+
+		//KLAR
+		public static Node fillCell(Model model) {
+			Rectangle req18 = new Rectangle(17, 17, model.getColor());
+			GridPane group = new GridPane();
+
+			ColumnConstraints column1 = new ColumnConstraints(1);
+			group.getColumnConstraints().add(column1);
+
+			RowConstraints row1 = new RowConstraints(1);
+			group.getRowConstraints().add(row1);
+
+			ColumnConstraints column18 = new ColumnConstraints(17);
+			group.getColumnConstraints().add(column18);
+			group.add(req18, 1, 1);
+			return group;
+		}
+
+		public static Node fillColumnEdge(Model model) {
+			Rectangle req18 = new Rectangle(16, 17, model.getColor());
+			GridPane group = new GridPane();
+
+			ColumnConstraints column1 = new ColumnConstraints(2);
+			group.getColumnConstraints().add(column1);
+
+			RowConstraints row1 = new RowConstraints(1);
+			group.getRowConstraints().add(row1);
+
+			ColumnConstraints column18 = new ColumnConstraints(17);
+			group.getColumnConstraints().add(column18);
+			group.add(req18, 1, 1);
+			return group;
+		}
+
+		//KLAR
+		public static Node fillRowEdge(Model model) {
+			Rectangle req18 = new Rectangle(17, 16, model.getColor());
+			GridPane group = new GridPane();
+
+			ColumnConstraints column1 = new ColumnConstraints(1);
+			group.getColumnConstraints().add(column1);
+
+			RowConstraints row1 = new RowConstraints(2);
+			group.getRowConstraints().add(row1);
+
+			ColumnConstraints column18 = new ColumnConstraints(17);
+			group.getColumnConstraints().add(column18);
+			group.add(req18, 1, 1);
+			return group;
+		}
+
+		//KLAR
+		public static Node fillRowCorner(Model model) {
+			Rectangle req1 = new Rectangle(2, 2, Color.TRANSPARENT);
+			Rectangle req2 = new Rectangle(2, 2, Color.TRANSPARENT);
+			Rectangle req18 = new Rectangle(16, 16, model.getColor());
+			GridPane group = new GridPane();
+
+			ColumnConstraints column1 = new ColumnConstraints(2);
+			group.getColumnConstraints().add(column1);
+			group.add(req1, 0, 1);
+
+			RowConstraints row1 = new RowConstraints(2);
+			group.getRowConstraints().add(row1);
+			group.add(req2, 1, 0);
+
+			ColumnConstraints column18 = new ColumnConstraints(17);
+			group.getColumnConstraints().add(column18);
+			group.add(req18, 1, 1);
+			return group;		}
 	}
 
 	private void setCanvasSize() {
@@ -91,3 +202,5 @@ public class PopupController {
 		this.stage = stage;
 	}
 }
+
+
