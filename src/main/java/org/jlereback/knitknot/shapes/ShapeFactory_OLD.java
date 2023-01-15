@@ -1,19 +1,20 @@
 package org.jlereback.knitknot.shapes;
 
+import javafx.scene.paint.Color;
+import org.jlereback.knitknot.shapes.shape.Circle;
+import org.jlereback.knitknot.shapes.shape.Shape;
+import org.jlereback.knitknot.shapes.shape.Square;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.scene.paint.Color;
-import static org.jlereback.knitknot.shapes.ShapeType.CIRCLE;
-import static org.jlereback.knitknot.shapes.ShapeType.SQUARE;
-import org.jlereback.knitknot.shapes.shape.Circle;
-import org.jlereback.knitknot.shapes.shape.Shape;
-import org.jlereback.knitknot.shapes.shape.Square;
+
+import static org.jlereback.knitknot.shapes.ShapeType.*;
 
 
-public class ShapeFactory
+public class ShapeFactory_OLD
 {
 
     static Pattern color = Pattern.compile("fill=.{10}");
