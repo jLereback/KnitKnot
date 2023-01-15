@@ -15,10 +15,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.jlereback.knitknot.shapes.ShapeFactory_OLD;
+import org.jlereback.knitknot.shapes.ShapeFactory;
 import org.jlereback.knitknot.shapes.ShapeType;
 import org.jlereback.knitknot.shapes.shape.FilledCell;
 import org.jlereback.knitknot.shapes.shape.GridCellCoordinate;
@@ -143,6 +141,7 @@ public class Controller {
 		else return;
 		model.getRedoDeque().clear();
 	}
+
 	private void getCell(MouseEvent mouseEvent) {
 		Arrays.stream(model.getGrid()).flatMap(Arrays::stream)
 				.filter(point -> point.isInsideCell(mouseEvent.getX(), mouseEvent.getY()))
@@ -283,26 +282,24 @@ public class Controller {
 			grid.getRowConstraints().add(row);
 		}
 
-
 		for (int i = 0; i < model.getColumn(); i++) {
 			for (int j = 0; j < model.getRow(); j++) {
 				AnchorPane pane = new AnchorPane();
-				/*Canvas pane = new Canvas();
-				GraphicsContext context = pane.getGraphicsContext2D();*/
 
 				int finalI = i;
 				int finalJ = j;
+				double size = model.getSize();
 				pane.setOnMouseClicked((event) -> {
-						if (finalI % 5 == 0 && finalJ % 5 == 0)
-							pane.getChildren().add(Anims.fillCorner(model));
-						else if (finalI % 5 == 0)
-							pane.getChildren().add(Anims.fillColumnEdge(model));
-						else if (finalJ % 5 == 0)
-							pane.getChildren().add(Anims.fillRowEdge(model));
+							if (finalI % 5 == 0 && finalJ % 5 == 0)
+								pane.getChildren().add(Anims.fillCorner(model, size));
+							else if (finalI % 5 == 0)
+								pane.getChildren().add(Anims.fillColumnEdge(model, size));
+							else if (finalJ % 5 == 0)
+								pane.getChildren().add(Anims.fillRowEdge(model, size));
 
-						else
-							pane.getChildren().add(Anims.fillCell(model));
-					}
+							else
+								pane.getChildren().add(Anims.fillCell(model, size));
+						}
 				);
 
 				pane.getStyleClass().add("game-grid-cell");
@@ -316,12 +313,15 @@ public class Controller {
 			}
 		}
 	}
+
 	public static class Anims {
-		static ShapeFactory_OLD shapeFactoryOLD;
+		static ShapeFactory shapeFactory = new ShapeFactory();
 
 		//KLAR
-		public static Node fillCell(Model model) {
-			Rectangle req18 = new Rectangle(17, 17, model.getColor());
+		public static Node fillCell(Model model, double size) {
+			var shape = shapeFactory.getShape(model.getShapeType(), size - 4, size - 4);
+			//Rectangle req18 = new Rectangle(17, 17, model.getColor());
+			shape.setFill(model.getColor());
 			GridPane group = new GridPane();
 
 			ColumnConstraints column1 = new ColumnConstraints(1);
@@ -330,14 +330,16 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(1);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(17);
+			ColumnConstraints column18 = new ColumnConstraints(size - 4);
 			group.getColumnConstraints().add(column18);
-			group.add(req18, 1, 1);
+			group.add(shape, 1, 1);
 			return group;
 		}
 
-		public static Node fillColumnEdge(Model model) {
-			Rectangle req18 = new Rectangle(16, 17, model.getColor());
+		public static Node fillColumnEdge(Model model, double size) {
+			var shape = shapeFactory.getShape(model.getShapeType(), size - 5, size - 4);
+			//Rectangle req18 = new Rectangle(16, 17, model.getColor());
+			shape.setFill(model.getColor());
 			GridPane group = new GridPane();
 
 			ColumnConstraints column1 = new ColumnConstraints(2);
@@ -346,15 +348,17 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(1);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(17);
+			ColumnConstraints column18 = new ColumnConstraints(size - 3);
 			group.getColumnConstraints().add(column18);
-			group.add(req18, 1, 1);
+			group.add(shape, 1, 1);
 			return group;
 		}
 
 		//KLAR
-		public static Node fillRowEdge(Model model) {
-			Rectangle req18 = new Rectangle(17, 16, model.getColor());
+		public static Node fillRowEdge(Model model, double size) {
+			var shape = shapeFactory.getShape(model.getShapeType(), size - 4, size - 5);
+			//Rectangle req18 = new Rectangle(17, 16, model.getColor());
+			shape.setFill(model.getColor());
 			GridPane group = new GridPane();
 
 			ColumnConstraints column1 = new ColumnConstraints(1);
@@ -363,15 +367,17 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(2);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(17);
+			ColumnConstraints column18 = new ColumnConstraints(size - 3);
 			group.getColumnConstraints().add(column18);
-			group.add(req18, 1, 1);
+			group.add(shape, 1, 1);
 			return group;
 		}
 
 		//KLAR
-		public static Node fillCorner(Model model) {
-			Rectangle req18 = new Rectangle(16, 16, model.getColor());
+		public static Node fillCorner(Model model, double size) {
+			var shape = shapeFactory.getShape(model.getShapeType(), size - 5, size - 5);
+			shape.setFill(model.getColor());
+			//Rectangle req18 = new Rectangle(16, 16, model.getColor());
 			GridPane group = new GridPane();
 
 			ColumnConstraints column1 = new ColumnConstraints(2);
@@ -380,10 +386,11 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(2);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(17);
+			ColumnConstraints column18 = new ColumnConstraints(size - 3);
 			group.getColumnConstraints().add(column18);
-			group.add(req18, 1, 1);
-			return group;		}
+			group.add(shape, 1, 1);
+			return group;
+		}
 	}
 
 
