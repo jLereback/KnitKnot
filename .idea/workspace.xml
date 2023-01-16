@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17d2c393-ee53-4476-82ad-f4e13e3a5afc" name="Changes" comment="Add ResizableCanvas">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/PopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/PopupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/shapes/shape/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/jlereback/knitknot/shapes/shape/Square.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/jlereback/knitknot/view.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="17d2c393-ee53-4476-82ad-f4e13e3a5afc" name="Changes" comment="Add functional filling of cells" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -272,7 +262,13 @@
       <option name="presentableId" value="LOCAL−00012" />
       <updated>1673017563927</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL−00013" summary="Add functional filling of cells">
+      <created>1673379267560</created>
+      <option name="number" value="LOCAL−00013" />
+      <option name="presentableId" value="LOCAL−00013" />
+      <updated>1673379267560</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +298,8 @@
     <MESSAGE value="Add some things" />
     <MESSAGE value="Add undo and redo as Command Pattern" />
     <MESSAGE value="Add ResizableCanvas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add ResizableCanvas" />
+    <MESSAGE value="Add functional filling of cells" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add functional filling of cells" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Labb3_VG$ModelTest_setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape.ic" NAME="ModelTest.setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape Coverage Results" MODIFIED="1671464665157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
