@@ -53,7 +53,7 @@
 	</top>
 	<center>
 		<AnchorPane BorderPane.alignment="TOP_LEFT">
-			<GridPane fx:id="grid" gridLinesVisible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
+			<GridPane fx:id="grid" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0"
 					  AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
 				<columnConstraints>
 					<ColumnConstraints/>

@@ -1,8 +1,5 @@
 package org.jlereback.knitknot.shapes.shape;
 
-import javafx.scene.canvas.GraphicsContext;
-import org.jlereback.knitknot.Model;
-
 public record GridCellCoordinate(double x, double y, int size) {
 
 	public boolean isInsideCell(double posX, double posY) {

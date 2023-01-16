@@ -41,7 +41,6 @@ public class Controller {
 
 	public Model model = new Model();
 	private Stage stage;
-	private static PopupController popupController;
 	private static Stage popupStage;
 	public GraphicsContext context;
 	public ChoiceBox<ShapeType> shapeType;
@@ -62,8 +61,6 @@ public class Controller {
 	public GridPane grid;
 
 	public void initialize() {
-
-		initPaintingArea();
 		initShape();
 		initButtons();
 		initMenu();
@@ -80,16 +77,6 @@ public class Controller {
 		createGrid();
 	}
 
-	private void initPaintingArea() {
-/*		context = paintingArea.getGraphicsContext2D();
-
-        paintingArea.widthProperty().bindBidirectional(model.canvasWidthProperty());
-        paintingArea.heightProperty().bindBidirectional(model.canvasHeightProperty());
-
-        paintingArea.widthProperty().addListener(observable -> draw(context));
-        paintingArea.heightProperty().addListener(observable -> draw(context));*/
-	}
-
 	private void initShape() {
 		colorPicker.valueProperty().bindBidirectional(model.colorProperty());
 
@@ -97,10 +84,6 @@ public class Controller {
 		shapeType.setItems(model.getChoiceBoxShapeList());
 
 		sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
-
-/*
-		model.getCellList().addListener((ListChangeListener<FilledCell>) onChange -> draw(context));
-*/
 	}
 
 	private void initButtons() {
@@ -127,10 +110,6 @@ public class Controller {
 		else {
 
 			getCell(mouseEvent);
-
-			//System.out.println(mouseEvent.getX());
-			//System.out.println(mouseEvent.getY());
-
 		}
 		model.getRedoDeque().clear();
 	}
@@ -245,7 +224,7 @@ public class Controller {
 		Parent root = popupLoader.load();
 
 		//Get controller of popup
-		popupController = popupLoader.getController();
+		PopupController popupController = popupLoader.getController();
 
 		//Pass whatever data you want. You can have multiple method calls here
 		popupController.setMainController(this);
@@ -318,10 +297,8 @@ public class Controller {
 	public static class Anims {
 		static ShapeFactory shapeFactory = new ShapeFactory();
 
-		//KLAR
 		public static Node fillCell(Model model, double size) {
 			var shape = shapeFactory.getShape(model.getShapeType(), size - 4, size - 4);
-			//Rectangle req18 = new Rectangle(17, 17, model.getColor());
 			shape.setFill(model.getColor());
 			GridPane group = new GridPane();
 
@@ -339,7 +316,6 @@ public class Controller {
 
 		public static Node fillColumnEdge(Model model, double size) {
 			var shape = shapeFactory.getShape(model.getShapeType(), size - 5, size - 4);
-			//Rectangle req18 = new Rectangle(16, 17, model.getColor());
 			shape.setFill(model.getColor());
 			GridPane group = new GridPane();
 
@@ -355,10 +331,8 @@ public class Controller {
 			return group;
 		}
 
-		//KLAR
 		public static Node fillRowEdge(Model model, double size) {
 			var shape = shapeFactory.getShape(model.getShapeType(), size - 4, size - 5);
-			//Rectangle req18 = new Rectangle(17, 16, model.getColor());
 			shape.setFill(model.getColor());
 			GridPane group = new GridPane();
 
@@ -374,11 +348,9 @@ public class Controller {
 			return group;
 		}
 
-		//KLAR
 		public static Node fillCorner(Model model, double size) {
 			var shape = shapeFactory.getShape(model.getShapeType(), size - 5, size - 5);
 			shape.setFill(model.getColor());
-			//Rectangle req18 = new Rectangle(16, 16, model.getColor());
 			GridPane group = new GridPane();
 
 			ColumnConstraints column1 = new ColumnConstraints(2);

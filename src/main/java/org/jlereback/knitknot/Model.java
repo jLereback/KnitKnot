@@ -46,7 +46,7 @@ public class Model {
 		this.redoDeque = new ArrayDeque<>();
 		this.color = new SimpleObjectProperty<>(Color.web("#44966C"));
 		this.size = new SimpleObjectProperty<>(20.0);
-		this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
+		this.shapeType = new SimpleObjectProperty<>(ShapeType.SQUARE);
 	}
 
 	public ObservableList<FilledCell> getCellList() {
