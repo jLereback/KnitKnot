@@ -330,8 +330,8 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(1);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(size - 4);
-			group.getColumnConstraints().add(column18);
+			ColumnConstraints column2 = new ColumnConstraints(size - 4);
+			group.getColumnConstraints().add(column2);
 			group.add(shape, 1, 1);
 			return group;
 		}
@@ -348,8 +348,8 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(1);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(size - 3);
-			group.getColumnConstraints().add(column18);
+			ColumnConstraints column2 = new ColumnConstraints(size - 3);
+			group.getColumnConstraints().add(column2);
 			group.add(shape, 1, 1);
 			return group;
 		}
@@ -367,8 +367,8 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(2);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(size - 3);
-			group.getColumnConstraints().add(column18);
+			ColumnConstraints column2 = new ColumnConstraints(size - 3);
+			group.getColumnConstraints().add(column2);
 			group.add(shape, 1, 1);
 			return group;
 		}
@@ -386,8 +386,8 @@ public class Controller {
 			RowConstraints row1 = new RowConstraints(2);
 			group.getRowConstraints().add(row1);
 
-			ColumnConstraints column18 = new ColumnConstraints(size - 3);
-			group.getColumnConstraints().add(column18);
+			ColumnConstraints column2 = new ColumnConstraints(size - 3);
+			group.getColumnConstraints().add(column2);
 			group.add(shape, 1, 1);
 			return group;
 		}
