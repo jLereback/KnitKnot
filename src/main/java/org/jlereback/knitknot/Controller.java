@@ -290,6 +290,7 @@ public class Controller {
 				int finalJ = j;
 				double size = model.getSize();
 				pane.setOnMouseClicked((event) -> {
+							pane.getChildren().clear();
 							if (finalI % 5 == 0 && finalJ % 5 == 0)
 								pane.getChildren().add(Anims.fillCorner(model, size));
 							else if (finalI % 5 == 0)
